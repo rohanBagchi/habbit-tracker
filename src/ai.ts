@@ -1,35 +1,4 @@
 export async function getParsedReminder(todoText: string) {
-  // const myHeaders = new Headers();
-  // myHeaders.append('Content-Type', 'application/json');
-  // myHeaders.append('X-goog-api-key', 'AIzaSyChPO2LsRWdTbg7Sq_dsGz5GZxs2m9DBMc');
-
-  // const raw = JSON.stringify({
-  //   contents: [
-  //     {
-  //       parts: [
-  //         {
-  //           text: 'Convert this to JSON with "text" and "dueDate" (ISO 8601 or null if not specified). DO not give an explanation, just correct JSON that is parseable: Remind me to check logs at 5pm today'
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // });
-
-  // const requestOptions = {
-  //   method: 'POST',
-  //   headers: myHeaders,
-  //   body: raw,
-  //   redirect: 'follow'
-  // };
-
-  // fetch(
-  //   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
-  //   requestOptions
-  // )
-  //   .then((response) => response.text())
-  //   .then((result) => console.log(result))
-  //   .catch((error) => console.error(error));
-
   const finalPrompt = `
     You are a reminder parser.
 
