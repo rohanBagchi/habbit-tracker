@@ -56,7 +56,7 @@ export async function getParsedReminder(todoText: string) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-goog-api-key': 'AIzaSyChPO2LsRWdTbg7Sq_dsGz5GZxs2m9DBMc'
+        'X-goog-api-key': process.env.GEMINI_API_KEY || ''
       },
       body: JSON.stringify({
         contents: [{ role: 'user', parts: [{ text: finalPrompt }] }]
