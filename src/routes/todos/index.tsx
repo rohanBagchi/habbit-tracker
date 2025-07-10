@@ -48,7 +48,7 @@ function Todo() {
             name='task'
             id='task-input'
             placeholder='Enter task here...'
-            className='mb-4 w-1/2'
+            className='mb-4 md:w-full lg:w-1/2'
           />
           <Button type='submit'>Save</Button>
         </div>
