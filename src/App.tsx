@@ -1,11 +1,10 @@
 import { Authenticated, Unauthenticated, AuthLoading } from 'convex/react';
 import { SignIn } from './SignIn';
 import { SignOut } from './SignOut';
-import { Todo } from './todos/Todo';
 
-function App() {
+function App({ children }: { children: React.ReactNode }) {
   return (
-    <div className='flex flex-col justify-center gap-6 w-1/2 mx-auto mt-10'>
+    <div className='flex flex-col justify-center w-1/2 mx-auto mt-10'>
       <AuthLoading>loading ...</AuthLoading>
 
       <Unauthenticated>
@@ -13,7 +12,7 @@ function App() {
       </Unauthenticated>
       <Authenticated>
         <SignOut />
-        <Todo />
+        {children}
       </Authenticated>
     </div>
   );
