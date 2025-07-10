@@ -11,6 +11,7 @@ import React, { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { AddReminder } from '@/components/reminders/add-reminder';
 import type { Id } from 'convex/_generated/dataModel.d';
+import { getParsedReminder } from '@/ai';
 
 export const Route = createFileRoute('/todos')({
   component: Todo
@@ -21,18 +22,27 @@ function Todo() {
   const updateTask = useMutation(api.tasks.update);
   const createTask = useMutation(api.tasks.create);
   const deleteTask = useMutation(api.tasks.deleteTask);
+  const createReminder = useMutation(api.reminders.createReminder);
 
   const [itemBeingEdited, setItemBeingEdited] = useState<null | string>(null);
   const [modalInfo, setModalInfo] = useState<null | {
     taskId: Id<'tasks'>;
   }>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const text = formData.get('task') as string;
     if (text) {
-      createTask({ text });
+      const taskId = await createTask({ text });
+      const reminder = await getParsedReminder(text);
+      await createReminder({
+        taskId: taskId,
+        text: reminder.text,
+        dueDate: reminder.dueDate
+      });
+      console.log('Parsed reminder:', reminder);
+
       e.currentTarget.reset();
     }
   };

@@ -41,13 +41,13 @@ export const create = mutation({
       throw new Error('User is not authenticated');
     }
 
-    const task = await ctx.db.insert('tasks', {
+    const taskId = await ctx.db.insert('tasks', {
       userId,
       text,
       isCompleted: false
     });
 
-    return task;
+    return taskId;
   }
 });
 
