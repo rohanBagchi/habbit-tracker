@@ -1,5 +1,5 @@
 import { getAuthUserId } from '@convex-dev/auth/server';
-import { mutation } from './_generated/server';
+import { mutation, query } from './_generated/server';
 import { v } from 'convex/values';
 
 export const createReminder = mutation({
@@ -63,7 +63,7 @@ export const deleteReminder = mutation({
   }
 });
 
-export const getReminders = mutation({
+export const getReminders = query({
   args: {},
   handler: async (ctx) => {
     const userId = await getAuthUserId(ctx);

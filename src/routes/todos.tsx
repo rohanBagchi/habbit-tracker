@@ -3,14 +3,16 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import clsx from 'clsx';
-import { api } from '../../../convex/_generated/api';
+import { api } from '../../convex/_generated/api';
 import { useMutation, useQuery } from 'convex/react';
-import { Edit, Trash } from 'lucide-react';
+import { Clock, Edit, Trash } from 'lucide-react';
 import React, { useState } from 'react';
 
 import { createFileRoute } from '@tanstack/react-router';
+import { AddReminder } from '@/components/reminders/add-reminder';
+import type { Id } from 'convex/_generated/dataModel.d';
 
-export const Route = createFileRoute('/todos/')({
+export const Route = createFileRoute('/todos')({
   component: Todo
 });
 
@@ -21,6 +23,9 @@ function Todo() {
   const deleteTask = useMutation(api.tasks.deleteTask);
 
   const [itemBeingEdited, setItemBeingEdited] = useState<null | string>(null);
+  const [modalInfo, setModalInfo] = useState<null | {
+    taskId: Id<'tasks'>;
+  }>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -120,6 +125,15 @@ function Todo() {
               variant='secondary'
               size='icon'
               className='size-8'
+              onClick={() => setModalInfo({ taskId: _id })}
+              disabled={itemBeingEdited === _id}
+            >
+              <Clock />
+            </Button>
+            <Button
+              variant='secondary'
+              size='icon'
+              className='size-8'
               onClick={() => setItemBeingEdited(_id)}
               disabled={itemBeingEdited === _id}
             >
@@ -137,6 +151,13 @@ function Todo() {
           </div>
         </div>
       ))}
+
+      {modalInfo && (
+        <AddReminder
+          taskId={modalInfo.taskId}
+          onClose={() => setModalInfo(null)}
+        />
+      )}
     </div>
   );
 }

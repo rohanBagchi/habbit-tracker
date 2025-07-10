@@ -54,6 +54,16 @@ function NavMenu() {
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link
+              to='/reminders'
+              className='[&.active]:font-bold'
+            >
+              Reminders
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );
