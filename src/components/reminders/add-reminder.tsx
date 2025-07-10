@@ -13,6 +13,7 @@ import { api } from '../../../convex/_generated/api';
 import { type Id } from '../../../convex/_generated/dataModel.d';
 import { useMutation } from 'convex/react';
 import { getFakeName } from './getFakeName';
+import { toast } from 'sonner';
 
 export function AddReminder({ taskId, onClose }: { taskId: Id<'tasks'>; onClose: () => void }) {
   const createReminder = useMutation(api.reminders.createReminder);
@@ -22,8 +23,10 @@ export function AddReminder({ taskId, onClose }: { taskId: Id<'tasks'>; onClose:
     const formData = new FormData(e.currentTarget);
     const text = formData.get('text') as string;
     const dueDate = formData.get('dueDate') as string;
+
     if (text) {
       await createReminder({ text, dueDate, taskId });
+      toast('Reminder has been created', {});
       onClose();
     }
   };

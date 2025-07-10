@@ -4,6 +4,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from '@/components/ui/navigation-menu';
+import { Toaster } from '@/components/ui/sonner';
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
@@ -15,6 +16,7 @@ export const Route = createRootRoute({
       <div className='mt-5'>
         <Outlet />
       </div>
+      <Toaster />
       <TanStackRouterDevtools />
     </>
   )
