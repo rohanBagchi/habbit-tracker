@@ -41,14 +41,17 @@ function Todo() {
         >
           Add a new task
         </Label>
-        <Input
-          type='text'
-          name='task'
-          id='task-input'
-          placeholder='Enter task here...'
-          className='mb-4'
-        />
-        <Button type='submit'>Save</Button>
+
+        <div className='flex gap-2'>
+          <Input
+            type='text'
+            name='task'
+            id='task-input'
+            placeholder='Enter task here...'
+            className='mb-4 w-1/2'
+          />
+          <Button type='submit'>Save</Button>
+        </div>
       </form>
       {tasks?.map(({ _id, text, isCompleted }) => (
         <div
