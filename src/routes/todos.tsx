@@ -19,6 +19,9 @@ export const Route = createFileRoute('/todos')({
 
 function Todo() {
   const tasks = useQuery(api.tasks.get);
+  const isAiParsingEnabled = useQuery(api.feature.getFeatureByName, {
+    featureName: 'AI_PARSING'
+  })?.isEnabled;
   const updateTask = useMutation(api.tasks.update);
   const createTask = useMutation(api.tasks.create);
   const deleteTask = useMutation(api.tasks.deleteTask);
@@ -29,20 +32,24 @@ function Todo() {
     taskId: Id<'tasks'>;
   }>(null);
 
+  console.log('isAiParsingEnabled:', isAiParsingEnabled);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const text = formData.get('task') as string;
     if (text) {
       const taskId = await createTask({ text });
-      const reminder = await getParsedReminder(text);
-      await createReminder({
-        taskId: taskId,
-        text: reminder.text,
-        dueDate: reminder.dueDate
-      });
-      console.log('Parsed reminder:', reminder);
 
+      if (isAiParsingEnabled) {
+        const reminder = await getParsedReminder(text);
+        await createReminder({
+          taskId: taskId,
+          text: reminder.text,
+          dueDate: reminder.dueDate
+        });
+        console.log('Parsed reminder:', reminder);
+      }
       e.currentTarget.reset();
     }
   };
