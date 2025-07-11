@@ -39,26 +39,6 @@ function NavMenu() {
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link
-              to='/about'
-              className='[&.active]:font-bold'
-            >
-              About
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <Link
-              to='/todos'
-              className='[&.active]:font-bold'
-            >
-              Todos
-            </Link>
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink asChild>
-            <Link
               to='/reminders'
               className='[&.active]:font-bold'
             >
