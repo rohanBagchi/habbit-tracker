@@ -19,5 +19,12 @@ export default defineSchema({
     updatedAt: v.optional(v.string()) // ISO date string
   })
     .index('userId', ['userId'])
-    .index('taskId', ['taskId'])
+    .index('taskId', ['taskId']),
+  features: defineTable({
+    userId: v.id('users'),
+    featureName: v.string(),
+    isEnabled: v.boolean(),
+    createdAt: v.optional(v.string()), // ISO date string
+    updatedAt: v.optional(v.string()) // ISO date string
+  }).index('userId', ['userId'])
 });
