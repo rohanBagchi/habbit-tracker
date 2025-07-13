@@ -36,6 +36,7 @@ function NavMenu() {
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
+
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link
@@ -43,6 +44,17 @@ function NavMenu() {
               className='[&.active]:font-bold'
             >
               Reminders
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link
+              to='/draw'
+              className='[&.active]:font-bold'
+            >
+              Draw
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
