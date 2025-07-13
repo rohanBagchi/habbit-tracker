@@ -1,7 +1,30 @@
 import { getAuthUserId } from '@convex-dev/auth/server';
-import { mutation, query } from './_generated/server';
+import { mutation, query, internalMutation } from './_generated/server';
 import { v } from 'convex/values';
 
+export const createReminderInternal = internalMutation({
+  args: {
+    taskId: v.id('tasks'),
+    userId: v.id('users'),
+    text: v.string(),
+    dueDate: v.optional(v.string()) // ISO date string
+  },
+  handler: async (ctx, args) => {
+    const { taskId, userId, text, dueDate } = args;
+
+    const reminder = await ctx.db.insert('reminders', {
+      userId,
+      taskId,
+      text,
+      isCompleted: false,
+      dueDate: dueDate,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    });
+
+    return reminder;
+  }
+});
 export const createReminder = mutation({
   args: {
     taskId: v.id('tasks'),

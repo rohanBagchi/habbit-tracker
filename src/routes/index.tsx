@@ -11,7 +11,6 @@ import React, { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { AddReminder } from '@/components/reminders/add-reminder';
 import type { Id } from 'convex/_generated/dataModel.d';
-import { getParsedReminder } from '@/ai';
 
 export const Route = createFileRoute('/')({
   component: Todo
@@ -19,38 +18,21 @@ export const Route = createFileRoute('/')({
 
 function Todo() {
   const tasks = useQuery(api.tasks.get);
-  const isAiParsingEnabled = useQuery(api.feature.getFeatureByName, {
-    featureName: 'AI_PARSING'
-  })?.isEnabled;
   const updateTask = useMutation(api.tasks.update);
   const createTask = useMutation(api.tasks.create);
   const deleteTask = useMutation(api.tasks.deleteTask);
-  const createReminder = useMutation(api.reminders.createReminder);
 
   const [itemBeingEdited, setItemBeingEdited] = useState<null | string>(null);
   const [modalInfo, setModalInfo] = useState<null | {
     taskId: Id<'tasks'>;
   }>(null);
 
-  console.log('isAiParsingEnabled:', isAiParsingEnabled);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const text = formData.get('task') as string;
     if (text) {
-      const taskId = await createTask({ text });
-
-      if (isAiParsingEnabled) {
-        const reminder = await getParsedReminder(text);
-        await createReminder({
-          taskId: taskId,
-          text: reminder.text,
-          dueDate: reminder.dueDate
-        });
-        console.log('Parsed reminder:', reminder);
-      }
-      e.currentTarget.reset();
+      await createTask({ text });
     }
   };
 
