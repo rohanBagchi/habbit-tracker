@@ -7,11 +7,8 @@ export const Route = createFileRoute('/draw')({
 
 function Draw() {
   return (
-    <div>
-      <h1 style={{ textAlign: 'center' }}>Excalidraw Example</h1>
-      <div className='w-dvw h-dvh'>
-        <Excalidraw />
-      </div>
+    <div className='w-full h-[calc(100dvh-53px)]'>
+      <Excalidraw />
     </div>
   );
 }
