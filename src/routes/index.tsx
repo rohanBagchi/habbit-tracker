@@ -37,7 +37,7 @@ function Todo() {
   };
 
   return (
-    <div>
+    <div className='w-1/2'>
       <form onSubmit={handleSubmit}>
         <Label
           htmlFor='task-input'

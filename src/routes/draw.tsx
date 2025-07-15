@@ -9,7 +9,7 @@ function Draw() {
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Excalidraw Example</h1>
-      <div style={{ height: '500px' }}>
+      <div className='w-dvw h-dvh'>
         <Excalidraw />
       </div>
     </div>
